@@ -55,7 +55,7 @@ SET PowerShellScriptPath=%ThisScriptsDirectory%ren-exp.ps1
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%PowerShellScriptPath%""' -Verb RunAs}";
 GOTO End
 
-:setupscripts
-SET PowerShellScriptPath=%ThisScriptsDirectory%setupscripts.ps1
+:updatescripts
+SET PowerShellScriptPath=%ThisScriptsDirectory%updatescripts.ps1
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%PowerShellScriptPath%""' -Verb RunAs}";
 GOTO End
