@@ -40,7 +40,7 @@ SET PowerShellScriptPath=%ThisScriptsDirectory%install-apps.ps1
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%PowerShellScriptPath%""' -Verb RunAs}";
 GOTO End
 
-:join-join-azure-domain
+:join-azure-domain
 SET PowerShellScriptPath=%ThisScriptsDirectory%join-azure-domain.ps1
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& {Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%PowerShellScriptPath%""' -Verb RunAs}";
 GOTO End

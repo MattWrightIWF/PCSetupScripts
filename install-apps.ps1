@@ -1,48 +1,55 @@
-﻿# APP INSTALL - new PC setup script, Matt W, 25/08/2022
+﻿# APP INSTALL - new PC setup script, Matt W, 25/08/2022 - updates by Simon C 13-10-22 for SMB network "approot" folder + adding poweruser
 
 $user = "iwfsetup"
 $password = Get-Content "iwf.k2" | ConvertTo-SecureString -Key (Get-Content "iwf.k1")
 $credential = New-Object System.Management.Automation.PsCredential($user,$password)
-$approot = "C:\TechTools\software"
+$approotlan = "\\iwf-itserv\software"
+$approot = "software:"
+
 
 
 Write-Host "This script will install applications relevant to this PC's use"
+Write-Host "Please ensure you're connected to the OFFICE network and $approotlan is accessible"
 Write-Host "1 - Hotline Desktop"
 Write-Host "2 - Office - On Site Desktop"
 Write-Host "3 - Office - Laptop / Roaming Desktop"
 Write-Host "4 - Airgap / Hashing computer"
-Write-Host " "
+Write-Host "5 - Power User - includes all of the above + extras"
+
 $purpchoice = Read-Host "Please enter 1 to 4:"
-Write-Host " "
+
+New-PSDrive -Name "software" -Root "$($approotlan)" -PSProvider "FileSystem" -Credential $credential
 
 & 'C:\Windows\notepad.exe' "$approot\keys.txt"
 
 if ($purpchoice -eq '1') {
 Write-Host "Setting up as Hotline desktop...."
-Read-Host "Please ensure this PC is connected to the HOTLINE Network and press enter"
 $softwarelocation = "$approot\hotline-n-office", "$approot\hotline"
 }
 
 
 if ($purpchoice -eq '2') {
 Write-Host "Setting up as Office on site..."
-Read-Host "Please ensure this PC is connected to the OFFICE Network and press enter"
 $softwarelocation = "$approot\hotline-n-office", "$approot\office"
 }
 
 
 if ($purpchoice -eq '3') {
 Write-Host "Setting up as Office roaming..."
-Read-Host "Please ensure this PC is connected to the OFFICE Network and press enter"
 $softwarelocation = "$approot\hotline-n-office", "$approot\office", "$approot\roaming"
 }
 
 
 if ($purpchoice -eq '4') {
 Write-Host "Setting up as Airgap machine..."
-Read-Host "Please ensure this PC is connected to the AIRGAP Network and press enter"
 $softwarelocation = "$approot\airgap"
 }
+
+if ($purpchoice -eq '5') {
+  Write-Host "Setting up as Power User machine..."
+  $softwarelocation = "$approot\hotline-n-office", "$approot\hotline", "$approot\office", "$approot\roaming", "$approot\poweruser"
+}
+
 
 $exeFiles = Get-ChildItem -Path $softwarelocation -Recurse -Include *.exe
 
@@ -63,4 +70,4 @@ foreach ( $msifile in $msiFiles ) {
 }
 
 Write-Host " "
-Write-Host "Software installation complete! - Hopefully :)"
+Write-Host "Software installation complete!"
