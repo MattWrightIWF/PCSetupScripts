@@ -56,7 +56,7 @@ $exeFiles = Get-ChildItem -Path $softwarelocation -Recurse -Include *.exe
 foreach ( $exefile in $exeFiles ) {
   $exefullPath = $exefile.FullName
   Write-Host "Installing '$exefullPath'"
-  Start-Process -FilePath $exefullPath -NoNewWindow  -ArgumentList '/silent', '/install' -Wait
+  Start-Process -FilePath $exefullPath -NoNewWindow  -ArgumentList '/install' -Wait
   Write-Host "$exefullPath is finished being installed"
 }
 
