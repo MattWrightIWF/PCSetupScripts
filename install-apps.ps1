@@ -3,7 +3,7 @@
 $user = "iwfsetup"
 $password = Get-Content "iwf.k2" | ConvertTo-SecureString -Key (Get-Content "iwf.k1")
 $credential = New-Object System.Management.Automation.PsCredential($user,$password)
-$approotlan = "\\iwf-itserv\software\ppkg\"
+$approotlan = "\\iwf-itserv\software\"
 $approot = "software:"
 
 Write-Host "This script will install applications relevant to this PC's use"
