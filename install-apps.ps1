@@ -3,7 +3,7 @@
 $user = "iwfsetup"
 $password = Get-Content "iwf.k2" | ConvertTo-SecureString -Key (Get-Content "iwf.k1")
 $credential = New-Object System.Management.Automation.PsCredential($user,$password)
-$approotlan = "\\iwf-itserv\software"
+$approotlan = "\\iwf-itserv\software\ppkg\"
 $approot = "software:"
 
 Write-Host "This script will install applications relevant to this PC's use"
@@ -78,4 +78,4 @@ foreach ( $msifile in $msiFiles ) {
 }
 
 Write-Host " "
-Write-Host "Software installation complete!"
+Read-Host "Software installation complete! Press Enter to exit - check keys above!"
