@@ -5,6 +5,8 @@ $password = Get-Content "iwf.k2" | ConvertTo-SecureString -Key (Get-Content "iwf
 $credential = New-Object System.Management.Automation.PsCredential($user,$password)
 $approotlan = "\\iwf-itserv\software"
 $approot = "software:"
+$torzip = "tor\tor.zip" ## basic install of TOR to c:\tor , then a zip up of that folder - check shortcut name hasnt changed
+$tordest = "C:\Tor"
 
 Write-Host "This script will install applications relevant to this PC's use"
 Write-Host "Please ensure you're connected to the OFFICE network and $approotlan is accessible"
@@ -22,6 +24,13 @@ if ($purpchoice -eq '1') {
 Write-Host "Setting up as Hotline desktop...."
 $softwarelocation = "$approot\hotline-n-office", "$approot\hotline"
 $ninitename = "$approot\ninite\hotline-n-office"
+## Install TOR Browser from Zip
+New-Item -"$tordest" -Type Directory -Force
+$ExtractShell = New-Object -ComObject Shell.Application
+$TorFiles = $ExtractShell.Namespace("$approot\$torzip").Items()
+$ExtractShell.NameSpace($tordest).CopyHere($TorFiles)
+Start-Process $tordest
+Copy-Item "$tordest\Start Tor Browser.lnk" -Destination "C:\Users\Public\Desktop" -Force
 }
 
 
