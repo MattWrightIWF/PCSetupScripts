@@ -3,7 +3,7 @@
 $user = "iwfsetup"
 $password = Get-Content "iwf.k2" | ConvertTo-SecureString -Key (Get-Content "iwf.k1")
 $credential = New-Object System.Management.Automation.PsCredential($user,$password)
-$approotlan = "\\iwf-itserv\software\"
+$approotlan = "\\iwf-itserv\software"
 $approot = "software:"
 
 Write-Host "This script will install applications relevant to this PC's use"
@@ -16,7 +16,7 @@ Write-Host "5 - Power User - includes all of the above + extras"
 
 $purpchoice = Read-Host "Please enter 1 to 4:"
 
-New-PSDrive -Name "software" -PSProvider "FileSystem" -Root "\\iwf-itserv\software" -Credential $credential -Scope Global
+New-PSDrive -Name "software" -PSProvider "FileSystem" -Root "$approotlan" -Credential $credential -Scope Global
 
 if ($purpchoice -eq '1') {
 Write-Host "Setting up as Hotline desktop...."
