@@ -25,7 +25,7 @@ Write-Host "Setting up as Hotline desktop...."
 $softwarelocation = "$approot\hotline-n-office", "$approot\hotline"
 $ninitename = "$approot\ninite\hotline-n-office"
 ## Install TOR Browser from Zip
-New-Item -"$tordest" -Type Directory -Force
+New-Item -Type dir "$tordest" -Force
 $ExtractShell = New-Object -ComObject Shell.Application
 $TorFiles = $ExtractShell.Namespace("$approot\$torzip").Items()
 $ExtractShell.NameSpace($tordest).CopyHere($TorFiles)
