@@ -93,7 +93,9 @@ foreach ( $msifile in $msiFiles ) {
   Write-Host "$msifullPath is finished being installed"
 }
 
-#remove 
+#remove network drive
 Remove-PSDrive -Name "software"
+
+#Finish script
 Write-Host " "
 Read-Host "Software installation complete! Press Enter to exit - check keys above!"
