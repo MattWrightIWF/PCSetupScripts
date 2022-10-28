@@ -7,6 +7,8 @@ $approotlan = "\\iwf-itserv\software"
 $approot = "software:"
 $torzip = "tor\tor.zip" ## basic install of TOR to c:\tor , then a zip up of that folder - check shortcut name hasnt changed
 
+#Menu Options
+
 Write-Host "This script will install applications relevant to this PC's use"
 Write-Host "Please ensure you're connected to the OFFICE network and $approotlan is accessible"
 Write-Host "1 - Hotline Desktop"
@@ -17,11 +19,13 @@ Write-Host "5 - Power User - includes all of the above + extras"
 
 $purpchoice = Read-Host "Please enter 1 to 5:"
 
+# Ensure that an option is selected or error out
 if (!$purpchoice) {
 Write-Host "Error! Please choose 1-5"
 exit
 }
 
+#Create a new network drive 
 New-PSDrive -Name "software" -PSProvider "FileSystem" -Root "$approotlan" -Credential $credential -Scope Global
 
 if ($purpchoice -eq '1') {
@@ -70,6 +74,7 @@ foreach ( $ninfile in $ninFiles ) {
   Write-Host "$ninfullPath is finished being installed"
 }
 
+# Install required exes
 $exeFiles = Get-ChildItem -Path $softwarelocation -Recurse -Include *.exe
 foreach ( $exefile in $exeFiles ) {
   $exefullPath = $exefile.FullName
@@ -77,6 +82,8 @@ foreach ( $exefile in $exeFiles ) {
   Start-Process -FilePath $exefullPath -NoNewWindow -ArgumentList "/s","/silent","/passive","/norestart" -Wait
   Write-Host "$exefullPath is finished being installed"
 }
+
+# Install required msi's
 
 $msiFiles = Get-ChildItem -Path $softwarelocation -Recurse -Include *.msi
 foreach ( $msifile in $msiFiles ) {
@@ -86,6 +93,7 @@ foreach ( $msifile in $msiFiles ) {
   Write-Host "$msifullPath is finished being installed"
 }
 
+#remove 
 Remove-PSDrive -Name "software"
 Write-Host " "
 Read-Host "Software installation complete! Press Enter to exit - check keys above!"
