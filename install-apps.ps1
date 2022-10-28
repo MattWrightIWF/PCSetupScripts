@@ -15,7 +15,12 @@ Write-Host "3 - Office - Laptop / Roaming Desktop"
 Write-Host "4 - Airgap / Hashing computer"
 Write-Host "5 - Power User - includes all of the above + extras"
 
-$purpchoice = Read-Host "Please enter 1 to 4:"
+$purpchoice = Read-Host "Please enter 1 to 5:"
+
+if (!$purpchoice) {
+Write-Host "Error! Please choose 1-5"
+exit
+}
 
 New-PSDrive -Name "software" -PSProvider "FileSystem" -Root "$approotlan" -Credential $credential -Scope Global
 
@@ -24,9 +29,7 @@ Write-Host "Setting up as Hotline desktop...."
 $softwarelocation = "$approot\hotline-n-office", "$approot\hotline"
 $ninitename = "$approot\ninite\hotline-n-office"
 ## Install TOR Browser from Zip
-
-Expand-Archive "$approot\$torzip" -DestinationPath c:
-
+Expand-Archive "$approot\$torzip" -DestinationPath c: -Force
 Copy-Item "c:\Tor\Start Tor Browser.lnk" -Destination "C:\Users\Public\Desktop" -Force
 }
 
