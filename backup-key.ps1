@@ -1,6 +1,6 @@
 # BACKUP KEY - new PC setup script, Simon C, 31-3-22
 # hacky edit to only 1 option - 4-4-22
-# test
+
 $bitlockerstorage = "\\IWF-ITSERV\bitlocker"
 
 Write-Host "This script will export your bitlocker recovery keys to:"
